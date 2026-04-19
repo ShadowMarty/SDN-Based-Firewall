@@ -45,7 +45,7 @@ sudo mn --version
 
 ### Install Ryu Controller
 ```bash
-python3 -m pip install --user ryu
+sudo pip3 install ryu
 ```
 
 Verify:
@@ -60,6 +60,18 @@ rm -f blocked_packets.log
 ```
 
 ## Running the Project
+
+### Option 1: Quick Demo with Menu 
+```bash
+cd ~/cn
+python3 run_demo.py
+```
+This opens an interactive menu that:
+- Starts controller and topology in separate terminals
+- Shows test commands to run
+- Handles cleanup and restart
+
+### Option 2: Manual Setup (Two Terminals)
 Open two terminals.
 
 **Terminal 1** (start Ryu controller):
@@ -89,7 +101,7 @@ h1 ping -c 3 h3
 
 3. Blocked port test with iperf (FAIL expected)
 ```bash
-h1 iperf -s -p 5001 &
+h1 iperf -s -p 5001 & 
 h2 iperf -c 10.0.0.1 -p 5001 -t 5
 ```
 

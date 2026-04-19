@@ -1,3 +1,6 @@
 __pycache__/
 *.pyc
 blocked_packets.log
+.DS_Store
+
+docs/
