@@ -56,9 +56,13 @@ class SimpleFirewall(app_manager.RyuApp):
         self.add_flow(datapath, priority=0, match=match, actions=actions)
 
     def add_flow(self, datapath, priority, match, actions, idle_timeout=0, hard_timeout=0):
-        ofproto = datapath.ofproto
         parser = datapath.ofproto_parser
-        instructions = [parser.OFPInstructionActions(ofproto.OFPIT_APPLY_ACTIONS, actions)]
+        if actions:
+            instructions = [
+                parser.OFPInstructionActions(datapath.ofproto.OFPIT_APPLY_ACTIONS, actions)
+            ]
+        else:
+            instructions = []
         flow_mod = parser.OFPFlowMod(
             datapath=datapath,
             priority=priority,
