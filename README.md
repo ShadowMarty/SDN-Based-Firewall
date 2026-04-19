@@ -21,20 +21,54 @@ Demonstrate SDN behavior in Mininet with an OpenFlow controller:
 If a packet matches a block rule, controller logs it and installs a high-priority drop flow.
 
 ## Prerequisites
-- Ubuntu with Mininet and Open vSwitch
-- Ryu installed (ryu-manager)
-- Python 3
+- Ubuntu 20.04 LTS / 22.04 LTS / 24.04 LTS (64-bit)
+- Sudo privileges and internet connectivity
+- Python 3 and pip
 
-## Setup and Execution
+## Installation
+
+### System Preparation
+```bash
+sudo apt update
+sudo apt upgrade -y
+```
+
+### Install Mininet and Open vSwitch
+```bash
+sudo apt install -y mininet openvswitch-switch python3-pip
+```
+
+### Verify Mininet Installation
+```bash
+sudo mn --version
+```
+
+### Install Ryu Controller
+```bash
+python3 -m pip install --user ryu
+```
+
+Verify:
+```bash
+ryu-manager --version
+```
+
+### Cleanup Before Each Run
+```bash
+sudo mn -c
+rm -f blocked_packets.log
+```
+
+## Running the Project
 Open two terminals.
 
-Terminal 1:
+**Terminal 1** (start Ryu controller):
 ```bash
 cd ~/cn
 ryu-manager --ofp-tcp-listen-port 6633 controller/firewall_controller.py
 ```
 
-Terminal 2:
+**Terminal 2** (start Mininet topology):
 ```bash
 cd ~/cn
 sudo python3 topology/simple_topology.py
